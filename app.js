@@ -8,7 +8,7 @@ const pug = require('pug');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 3000;
 
 app.set('view engine', 'pug');
 app.set("views", p.join(__dirname, "views"));
