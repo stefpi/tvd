@@ -41,7 +41,7 @@ app.post('/', upload.single('userFile'), function(req, response) {
         console.log(wordID[i] + "\n");
     }
 
-    // fs.unlinkSync(userFilePath);
+    fs.unlinkSync(userFilePath);
     let videoLinks = [];
     let videoTitles = [];
     let index = 0;
