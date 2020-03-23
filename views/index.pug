@@ -1,16 +1,31 @@
 html
     body
-        h1 Twitch Video Downloader
-        form(
-            action='/'
-            method='post'
-            enctype='multipart/form-data'
-        )
-            input(
-                type='file'
-                name='userFile'
-                required
-            )
-            input(
-                type='Submit'
-            )
+        style
+            include stylesheets/home.css
+        div(id='rounded-box')
+            div(id='rounded-box-content')
+                h1(class='title') TVD
+                p(class='version') version 1.0
+                form(
+                    action='/'
+                    method='post'
+                    enctype='multipart/form-data'
+                )
+                    div(class='client-input')
+                        p(id='client-input-label') 'Client ID : '
+                        input(
+                            type='text'
+                            name='userId'
+                            required
+                        )
+                    div(class='file-input')
+                        p(id='file-input-label') '.txt file : '
+                        input(
+                            type='file'
+                            name='userFile'
+                            required
+                        )
+                    div(class='submit-button')
+                        input(
+                            type='Submit'
+                        )
