@@ -1,0 +1,31 @@
+#rounded-box
+{
+    border-radius: 25px;
+    border: 2px solid black;
+    background-color: mediumpurple;
+    width: max-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#rounded-box-content
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: Courier New, serif;
+    text-align: justify;
+}
+#title
+{
+    text-align: center;
+}
+#instructions
+{
+    text-align: justify;
+}
+#link
+{
+    text-align: center;
+    padding-bottom: 20px;
+}

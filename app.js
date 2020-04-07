@@ -15,7 +15,7 @@ app.set("views", p.join(__dirname, "views"));
 app.locals.basedir = p.join(__dirname, "views");
 // app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.json());
 let upload = multer({dest: 'uploads/'});
 
@@ -26,12 +26,22 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-app.post('/', upload.single('userFile'), function(req, response) {
-    //647iaau8s2ovn7ywasvuwxpjbhttrj
-    let clientId = req.body.userId;
-    console.log(clientId);
+app.get('/howto', function(req, res) {
+    res.render('howto');
+});
 
-    let userFilePath = req.file.path;
+app.post('/', upload.single('userFile'), function(req, response) {
+    // let a = req.file.path;
+    let b = req.body.textarea;
+    let userFilePath;
+
+    if(req.file != null) {userFilePath = req.file.path;}
+    else if(b != null) {
+        userFilePath = 'uploads/clips.txt'
+        fs.writeFileSync(userFilePath, b)
+    } else {
+        console.log('error');
+    }
 
     let file = fs.readFileSync(userFilePath, 'utf8');
     clips = file.toString().split('\n');
@@ -41,7 +51,7 @@ app.post('/', upload.single('userFile'), function(req, response) {
     // console.log(id);
     for (let i = 0; i < clips.length; i++) {
         console.log(clips[i]);
-        wordID[i] = clips[i].split(".tv/").pop().split(" ")[0];
+        wordID[i] = clips[i].split("clip/").pop().split(" ")[0];
         console.log(wordID[i] + "\n");
     }
 
@@ -57,7 +67,7 @@ app.post('/', upload.single('userFile'), function(req, response) {
         const options = {
             url: 'https://api.twitch.tv/helix/clips?id=' + wordID[i],
             headers: {
-                'Client-ID': clientId
+                'Client-ID': '0438cmgh4hcpou1rhcm9hua1wmsift'
             }
         };
 
