@@ -2,10 +2,44 @@ html
     body
         style
             include stylesheets/links.css
-        h1 video links
-        ul
-            each link,i in links
-                li
-                    //a(href=link class='filelinks' name=i) #{titles[i].toString()}
-                    a(href=link class='filelinks' name=i)
-                        img(src=images[i])
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap')
+        div(class='background')
+            div(id='header-background')
+        div(class='main')
+            div(class='header-container')
+                div(class='header')
+                    h1 clips
+            div(class='container')
+                div(class='list')
+                    div(class='links-column' id='column-1')
+                        each link,i in links
+                            if (i%3) === 0
+                                a(href=link class='link' name=i)
+                                    div(class='padding')
+                                        img(
+                                            src=images[i]
+                                            style="width:100%"
+                                        )
+                    div(class='links-column' id='column-2')
+                        each link,i in links
+                            if (i % 3) === 1
+                                a(href=link class='link' name=i)
+                                    div(class='padding')
+                                        img(
+                                            src=images[i]
+                                            style="width:100%"
+                                        )
+                    div(class='links-column' id='column-3')
+                        each link,i in links
+                            if (i % 3) === 2
+                                a(href=link class='link' name=i)
+                                    div(class='padding')
+                                        img(
+                                            src=images[i]
+                                            style="width:100%"
+                                        )
+            div(class='download')
+                button(
+                    id='download-button'
+                    onclick="downloadAll()"
+                ) ello

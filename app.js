@@ -8,12 +8,13 @@ const pug = require('pug');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
+const clientId = process.env.CLIENTID;
 
 app.set('view engine', 'pug');
 app.set("views", p.join(__dirname, "views"));
 app.locals.basedir = p.join(__dirname, "views");
-// app.use(express.static('public'));
+app.use(express.static('views'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.json());
@@ -61,13 +62,16 @@ app.post('/', upload.single('userFile'), function(req, response) {
     let videoLinks = [];
     let videoTitles = [];
     let thumbImg = [];
+    let imgSizeX = [];
+    let imgSizeY = [];
+    let imgRatio = [];
     let index = 0;
 
     for (let i = 0; i < clips.length; i++) {
         const options = {
             url: 'https://api.twitch.tv/helix/clips?id=' + wordID[i],
             headers: {
-                'Client-ID': '0438cmgh4hcpou1rhcm9hua1wmsift'
+                'Client-ID': clientId
             }
         };
 
@@ -80,6 +84,12 @@ app.post('/', upload.single('userFile'), function(req, response) {
             // videoLinks.push(vidLink);
             videoLinks[i] = thumbArr[0] + ".mp4";
 
+            imgSizeX[i] = (thumbArr[1].split(".jpg")[0].split("x")[0]);
+            imgSizeY[i] = (thumbArr[1].split(".jpg")[0].split("x")[1]);
+            imgRatio[i] = (imgSizeX[i]/imgSizeY[i]);
+            console.log(imgSizeX[i] + " " + imgSizeY[i] + " " + imgRatio[i]);
+            imgSizeX[i] = 400;
+            imgSizeY[i] = 400/imgRatio[i];
             // let vidTitle = contents.data[0].title;
             // videoTitles.push(vidTitle);
             videoTitles[i] = contents.data[0].title;
@@ -87,7 +97,14 @@ app.post('/', upload.single('userFile'), function(req, response) {
             thumbImg[i] = thumbStr;
 
             if(index === clips.length - 1) {
-                response.render('links', {links: videoLinks, titles: videoTitles, images: thumbImg});
+                response.render('links', {
+                    links: videoLinks,
+                    titles: videoTitles,
+                    images: thumbImg,
+                    imgNum: clips.length,
+                    imgX: imgSizeX,
+                    imgY: imgSizeY
+                });
             }
             index++;
         });

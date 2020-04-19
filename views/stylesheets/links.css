@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+}
+.background{
+    position: absolute;
+    z-index: -2;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: ghostwhite;
+}
+#header-background {
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 30%;
+    overflow-y: auto;
+    background-color: mediumpurple;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+.header-container {
+    align-items: center;
+    margin-bottom: 10px;
+    -moz-box-shadow: 0 0 10px #000000;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 15px 35px 0 rgba(18, 37, 49, .1), 0 5px 15px 0 rgba(0, 0, 0, .05);
+    border-radius: 8px;
+    background-color: white;
+    width: 100%;
+}
+.header {
+    text-align: center;
+}
+h1 {
+    font-family: "Black Ops One", cursive;
+}
+.container {
+    align-items: center;
+    -moz-box-shadow: 0 0 10px #000000;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 15px 35px 0 rgba(18,37,49,.1),0 5px 15px 0 rgba(0,0,0,.05);
+    border-radius: 8px;
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+}
+.list {
+    display: flex;
+    flex-direction: row;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    /*align-items: center;*/
+    justify-content: center;
+}
+.links-column {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    -ms-flex: 33.33%;
+    flex: 33.33%;
+    max-width: 33.33%;
+}
+.column-1 {
+
+}
+.column-2 {
+
+}
+.column-3 {
+
+}
+.padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.link img {
+    vertical-align: middle;
+    width: 100%;
+    border-radius: 8px;
+}
+@media screen and (max-width: 800px) {
+    .links-column {
+        -ms-flex: 50%;
+        flex: 50%;
+        max-width: 50%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .links-column {
+        -ms-flex: 100%;
+        flex: 100%;
+        max-width: 100%;
+    }
+}
