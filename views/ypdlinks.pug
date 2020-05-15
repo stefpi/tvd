@@ -8,38 +8,38 @@ html
         div(class='main')
             div(class='header-container')
                 div(class='header')
-                    h1 clips
+                    h1 videos in selected playlist
             div(class='container')
                 div(class='list')
                     div(class='links-column' id='column-1')
-                        each link,i in links
+                        each id,i in videoIds
                             if (i%3) === 0
-                                a(href=link class='link' name=i)
+                                a(href="https://www.youtube.com/watch?v=" + id class='link' name=i)
                                     div(class='padding')
                                         img(
-                                            src=images[i]
+                                            src=videoImgs[i]
                                             style="width:100%"
                                         )
+                                button(class='download' name=id) #{videoTitles[i]}
                     div(class='links-column' id='column-2')
-                        each link,i in links
+                        each id,i in videoIds
                             if (i % 3) === 1
-                                a(href=link class='link' name=i)
+                                a(href="https://www.youtube.com/watch?v=" + id class='link' name=i)
                                     div(class='padding')
                                         img(
-                                            src=images[i]
+                                            src=videoImgs[i]
                                             style="width:100%"
                                         )
+                                button(class='download' name=id) #{videoTitles[i]}
                     div(class='links-column' id='column-3')
-                        each link,i in links
+                        each id,i in videoIds
                             if (i % 3) === 2
-                                a(href=link class='link' name=i)
+                                a(href="https://www.youtube.com/watch?v=" + id class='link' name=i)
                                     div(class='padding')
                                         img(
-                                            src=images[i]
+                                            src=videoImgs[i]
                                             style="width:100%"
                                         )
-            //div(class='download')
-            //    button(
-            //        id='download-button'
-            //        onclick="downloadAll()"
-            //    ) ello
+                                button(class='download' name=id) #{videoTitles[i]}
+        script
+            include scripts/ypdlinks.js

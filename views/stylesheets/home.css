@@ -19,7 +19,7 @@ html, body {
 .container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     min-height: 100vh;
     box-sizing: border-box;
     padding: 20px;
@@ -111,18 +111,19 @@ html, body {
 #column-header {
     height: 10%;
     width: 95%;
-    justify-content: center;
-}
-.title {
+    -moz-box-shadow: 0 0 10px #000000;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 15px 35px 0 rgba(18,37,49,.1),0 5px 15px 0 rgba(0,0,0,.05);
+    border-radius: 8px;
+    background-color: white;
     display: flex;
-    flex-direction: row;
+    text-align: center;
     align-items: center;
-    justify-content: space-between;
-    font-family: "Black Ops One", cursive;
-    font-size: 30px;
+    justify-content: center;
+    flex-direction: row;
 }
-.title-separator {
-    padding: 10px;
+#column-header h3 {
+    font-size: 2.5vw;
 }
 #column-body-1 {
     height: 40%;

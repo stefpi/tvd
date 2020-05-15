@@ -1,15 +1,20 @@
 const request = require('request');
-const rp = require('request-promise');
+// const rp = require('request-promise');
 const p = require('path');
 const fs = require('fs');
 const multer = require('multer');
 const express = require('express');
-const pug = require('pug');
+const ytdl = require('ytdl-core');
+// const pug = require('pug');
 const bodyParser = require('body-parser');
+const { spawn } = require('child_process');
+const { google } = require('googleapis');
+const youtube = google.youtube('v3');
 
 const app = express();
 const port = process.env.PORT || 80;
 const clientId = process.env.CLIENTID;
+const ykey = process.env.YKEY;
 
 app.set('view engine', 'pug');
 app.set("views", p.join(__dirname, "views"));
@@ -27,9 +32,9 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-app.get('/howto', function(req, res) {
-    res.render('howto');
-});
+// app.get('/howto', function(req, res) {
+//     res.render('howto');
+// });
 
 app.post('/', upload.single('userFile'), function(req, response) {
     // let a = req.file.path;
@@ -38,8 +43,8 @@ app.post('/', upload.single('userFile'), function(req, response) {
 
     if(req.file != null) {userFilePath = req.file.path;}
     else if(b != null) {
-        userFilePath = 'uploads/clips.txt'
-        fs.writeFileSync(userFilePath, b)
+        userFilePath = 'uploads/clips.txt';
+        fs.writeFileSync(userFilePath, b);
     } else {
         console.log('error');
     }
@@ -109,6 +114,56 @@ app.post('/', upload.single('userFile'), function(req, response) {
             index++;
         });
     }
+});
+
+app.get('/ypdl', function(req, res) {
+    res.render('ypdl');
+});
+
+app.post('/ypdl', function(req, res) {
+    let youplaylink = req.body.yplink;
+    let youplayid = youplaylink.split("list=")[1];
+
+    youtube.playlistItems.list({
+        key: ykey,
+        part: 'snippet,contentDetails',
+        playlistId: youplayid,
+        maxResults: 25,
+    }, (err, results) => {
+        if (err) {console.log(err);}
+
+        let ypdlId = [];
+        let ypdlTitle = [];
+        let ypdlImgs = [];
+
+        let yItems = results.data.items;
+        for (let i=0; i < yItems.length; i++) {
+            ypdlId[i] = yItems[i].contentDetails.videoId;
+            ypdlTitle[i] = yItems[i].snippet.title;
+            ypdlImgs[i] = yItems[i].snippet.thumbnails.high.url;
+        }
+
+        res.render('ypdlinks', {
+            videoIds: ypdlId,
+            videoTitles: ypdlTitle,
+            videoImgs: ypdlImgs
+        });
+    });
+});
+
+app.get('/ypdlinks', function(req, res) {
+
+});
+
+app.get('/download', function(req, res) {
+    let id = req.query.ID;
+    let title = req.query.TITLE;
+
+    res.header('Content-Disposition', 'attachment; filename="' + title + '.mp4"');
+
+    ytdl(id, {
+        format: 'mp4'
+    }).pipe(res);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
