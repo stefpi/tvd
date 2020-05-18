@@ -1,0 +1,55 @@
+html, body {
+    margin: 0;
+}
+.background{
+    position: absolute;
+    z-index: -2;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    /*background-image: url('images/twitchbackground.png');*/
+}
+#header-background {
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 30%;
+    background-color: #FF0000;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.parent {
+    display: flex;
+    align-items: center;
+}
+.box {
+    -moz-box-shadow: 0 0 10px #000000;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 15px 35px 0 rgba(18,37,49,.1),0 5px 15px 0 rgba(0,0,0,.05);
+    border-radius: 8px;
+    background-color: white;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.box p {
+    margin-top: 0;
+}
+.box img {
+    border-radius: 8px;
+}
+.box button {
+    margin-top: 16px;
+    width: 100%;
+}

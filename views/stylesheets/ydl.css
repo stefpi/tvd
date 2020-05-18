@@ -39,7 +39,7 @@ html, body {
     width: 38%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 0px;
 }
@@ -109,7 +109,7 @@ html, body {
     flex-direction: column;
 }
 #column-header {
-    height: 10%;
+    height: 8%;
     width: 95%;
     -moz-box-shadow: 0 0 10px #000000;
     -webkit-box-shadow: 0 0 10px #000000;
@@ -126,22 +126,31 @@ html, body {
     font-size: 2.5vw;
 }
 #column-body-1 {
-    height: 40%;
+    height: 15%;
     width: 95%;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
+}
+#column-body-1 p {
+    margin-top: 0px;
 }
 #column-body-2 {
-    height: 40%;
+    height: 15%;
     width: 95%;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
+}
+#column-body-2 p {
+    margin-top: 0px;
 }
 #column-footer {
     height: 5%;
     width: 95%;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 .file-input-padding {
     /*display: flex;*/
@@ -215,6 +224,13 @@ html, body {
 }
 #upload-button {
     width: 100%;
+}
+.textinput {
+    width: 100%;
+    resize: none;
+    font-size: 12px;
+    outline: none;
+    border: none;
 }
 .text-input-area {
     width: 100%;

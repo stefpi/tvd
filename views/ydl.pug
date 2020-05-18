@@ -1,0 +1,73 @@
+html
+    body
+        style
+            include stylesheets/ydl.css
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap')
+    div(class='background')
+        div(id='header-background')
+    div(class='container')
+        div(class='column' id='header')
+            div(class='vertical-center')
+                div(class='logo')
+                    img(src='images/yvd.png')
+
+        form(
+            class='column'
+            id='inputs'
+            action='/ydl'
+            method='post'
+            onsubmit="return validateMyForm();"
+        )
+            div(id='column-header')
+                h3 twitch clip downloader
+            div(class='row' id='column-body-1')
+                div(class='file-input-padding')
+                    div(class='file-input-header')
+                        p Option 1. Input Text File
+                    div(class='file-input-body-example')
+
+                    div(class='input-body')
+                        input(
+                            type='text'
+                            name='ylink'
+                            class='textinput'
+                            id='ylink'
+                            placeholder='https://www.youtube.com/watch?v=NaD01NBfg-A'
+                        )
+                        div(class='footline')
+            div(class='row' id='column-body-2')
+                div(class='file-input-padding')
+                    div(class='file-input-header')
+                        p Option 2. Input Links Here
+                    div(class='input-body')
+                        input(
+                            type='text'
+                            name='ypdlink'
+                            class='textinput'
+                            id='ypdlink'
+                            placeholder='https://www.youtube.com/playlist?list=PLbmtdqiQduf3WvN829GqBGtICB1jSrwu2'
+                        )
+                        div(class='footline')
+            div(class='row' id='column-footer')
+                div(class='submit-button')
+                    input(
+                        type='Submit'
+                        id='submit'
+                    )
+
+        div(class='column' id='howto')
+            div(class='rounded-box')
+                div(class='instructions')
+                    div(class='footline')
+                    h3 How to use YVD
+                    p.
+                        1. Choose a method to upload the clips, which can either be using a clips.txt file
+                        or directly inputting the links into the browser text box.
+                    p.
+                        2. Press the submit button, which will display all of your links.
+                    p.
+                        3. To download a clip, press the thumbnail image.
+                    div(class='footline')
+
+        script
+            include scripts/ydl.js

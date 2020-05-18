@@ -1,0 +1,16 @@
+html
+    body
+        style
+            include stylesheets/ydlinks.css
+        div(class='background')
+            div(id='header-background')
+
+        div(class='container')
+            div(class='parent')
+                div(class='box')
+                    p(id='title') #{videoTitle}
+                    img(src=videoImg, id=videoId, class='videoImage')
+                    button(class='download') DOWNLOAD
+
+        script
+            include scripts/ydlinks.js

@@ -43,7 +43,7 @@ html, body {
     text-align: center;
 }
 h1 {
-    font-family: "Black Ops One", cursive;
+    /*font-family: "Black Ops One", cursive;*/
 }
 .container {
     align-items: center;
@@ -90,6 +90,9 @@ h1 {
     vertical-align: middle;
     width: 100%;
     border-radius: 8px;
+}
+.download {
+    cursor: pointer;
 }
 @media screen and (max-width: 800px) {
     .links-column {

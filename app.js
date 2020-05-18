@@ -116,43 +116,62 @@ app.post('/', upload.single('userFile'), function(req, response) {
     }
 });
 
-app.get('/ypdl', function(req, res) {
-    res.render('ypdl');
+app.get('/ydl', function(req, res) {
+    res.render('ydl');
 });
 
-app.post('/ypdl', function(req, res) {
-    let youplaylink = req.body.yplink;
-    let youplayid = youplaylink.split("list=")[1];
+app.post('/ydl', function(req, res) {
+    let youplaylink = "";
 
-    youtube.playlistItems.list({
-        key: ykey,
-        part: 'snippet,contentDetails',
-        playlistId: youplayid,
-        maxResults: 25,
-    }, (err, results) => {
-        if (err) {console.log(err);}
+    if (req.body.ylink === "") {
+        youplaylink = req.body.ypdlink;
+        let youplayid = youplaylink.split("list=")[1];
 
-        let ypdlId = [];
-        let ypdlTitle = [];
-        let ypdlImgs = [];
+        youtube.playlistItems.list({
+            key: ykey,
+            part: 'snippet,contentDetails',
+            playlistId: youplayid,
+            maxResults: 25,
+        }, (err, results) => {
+            if (err) {console.log(err);}
 
-        let yItems = results.data.items;
-        for (let i=0; i < yItems.length; i++) {
-            ypdlId[i] = yItems[i].contentDetails.videoId;
-            ypdlTitle[i] = yItems[i].snippet.title;
-            ypdlImgs[i] = yItems[i].snippet.thumbnails.high.url;
-        }
+            let ypdlId = [];
+            let ypdlTitle = [];
+            let ypdlImgs = [];
 
-        res.render('ypdlinks', {
-            videoIds: ypdlId,
-            videoTitles: ypdlTitle,
-            videoImgs: ypdlImgs
+            let yItems = results.data.items;
+            for (let i=0; i < yItems.length; i++) {
+                ypdlId[i] = yItems[i].contentDetails.videoId;
+                ypdlTitle[i] = yItems[i].snippet.title;
+                if (yItems[i].snippet.thumbnails.high !== undefined) {
+                    ypdlImgs[i] = yItems[i].snippet.thumbnails.high.url;
+                }
+            }
+
+            res.render('ypdlinks', {
+                videoIds: ypdlId,
+                videoTitles: ypdlTitle,
+                videoImgs: ypdlImgs
+            });
         });
-    });
-});
+    } else if (req.body.ypdlink === "") {
+        youplaylink = req.body.ylink;
+        let youid = youplaylink.split("?v=")[1];
 
-app.get('/ypdlinks', function(req, res) {
+        youtube.videos.list({
+            key: ykey,
+            part: 'snippet,contentDetails',
+            id: youid
+        }, (err, results) => {
+            if (err) {console.log(err);}
 
+            res.render('ydlinks', {
+                videoId: youid,
+                videoImg: results.data.items[0].snippet.thumbnails.high.url,
+                videoTitle: results.data.items[0].snippet.title
+            });
+        });
+    }
 });
 
 app.get('/download', function(req, res) {
