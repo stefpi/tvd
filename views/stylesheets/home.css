@@ -14,7 +14,7 @@ html, body {
     z-index: -1;
     height: 100%;
     width: 30%;
-    background-color: #FF0000;
+    background-color: mediumpurple;
 }
 .container {
     display: flex;
@@ -206,7 +206,7 @@ html, body {
     z-index: -1;
 }
 #fileupload + #upload-button {
-    background-color: #FF0000;
+    background-color: mediumpurple;
     text-align: center;
     padding: 5px;
     border-radius: 8px;
@@ -226,7 +226,7 @@ html, body {
 .footline {
     width: 100%;
     height: 2px;
-    background-color: #FF0000;
+    background-color: mediumpurple;
     /*margin-top: 5px;*/
 }
 #footline-button {
