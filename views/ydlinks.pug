@@ -9,7 +9,23 @@ html
             div(class='parent')
                 div(class='box')
                     p(id='title') #{videoTitle}
-                    img(src=videoImg, id=videoId, class='videoImage')
+                    img(src=videoImg
+                        id=videoId
+                        class='videoImage'
+                        style='width:100%'
+                        )
+                    div(class='options')
+                        div(class='quality')
+                            p Enter Preferred Quality
+                            select(class='qualityDropDown')
+                                each val in videoQuality
+                                    option=val
+                        div(class='userFileName')
+                            p Enter Preferred File Name
+                            input(
+                                class='fileName'
+                                type='text'
+                                )
                     button(class='download') DOWNLOAD
 
         script

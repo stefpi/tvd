@@ -155,6 +155,9 @@ app.post('/ydl', function(req, res) {
             });
         });
     } else if (req.body.ypdlink === "") {
+        let format = [];
+        let quality = [];
+
         youplaylink = req.body.ylink;
         let youid = youplaylink.split("?v=")[1];
 
@@ -165,10 +168,39 @@ app.post('/ydl', function(req, res) {
         }, (err, results) => {
             if (err) {console.log(err);}
 
-            res.render('ydlinks', {
-                videoId: youid,
-                videoImg: results.data.items[0].snippet.thumbnails.high.url,
-                videoTitle: results.data.items[0].snippet.title
+            ytdl.getInfo(youid, (err, info) => {
+                if (err) throw err;
+
+                let int = 0;
+                for (let i=0; i<info.formats.length; i++) {
+                    if (info.formats[i].itag === 133) {
+                        quality[int] = "240p";
+                        int++;
+                    } else if (info.formats[i].itag === 134) {
+                        quality[int] = "360p";
+                        int++;
+                    } else if (info.formats[i].itag === 135) {
+                        quality[int] = "480p";
+                        int++;
+                    } else if (info.formats[i].itag === 136) {
+                        quality[int] = "720p";
+                        int++;
+                    } else if (info.formats[i].itag === 137) {
+                        quality[int] = "1080p";
+                        int++;
+                    } else if (info.formats[i].itag === 138) {
+                        quality[int] = "2160p60";
+                        int++;
+                    }
+                }
+
+                console.log(quality);
+                res.render('ydlinks', {
+                    videoId: youid,
+                    videoImg: results.data.items[0].snippet.thumbnails.high.url,
+                    videoTitle: results.data.items[0].snippet.title,
+                    videoQuality: quality
+                });
             });
         });
     }
@@ -177,10 +209,12 @@ app.post('/ydl', function(req, res) {
 app.get('/download', function(req, res) {
     let id = req.query.ID;
     let title = req.query.TITLE;
+    let itag = req.query.ITAG;
 
     res.header('Content-Disposition', 'attachment; filename="' + title + '.mp4"');
 
     ytdl(id, {
+        quality: itag,
         format: 'mp4'
     }).pipe(res);
 });

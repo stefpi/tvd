@@ -53,3 +53,23 @@ html, body {
     margin-top: 16px;
     width: 100%;
 }
+.options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 16px;
+}
+.quality {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.userFileName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.format p {
+    margin-bottom: 0;
+}

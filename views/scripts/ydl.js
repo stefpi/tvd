@@ -11,6 +11,16 @@ function validateMyForm() {
         // returnToPreviousPage();
         return false;
     }
-
     return true;
 }
+
+const ylink = document.querySelector('#ylink');
+const ypdlink = document.querySelector('#ypdlink');
+
+// function disableL() {
+//     ylink.disabled = true;
+// }
+//
+// function disablePl() {
+//     ypdlink.disabled = true;
+// }
