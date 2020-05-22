@@ -13,29 +13,16 @@ function sendID(id, title, itag) {
 
 button.addEventListener('click', () => {
     let quality = document.querySelector('.qualityDropDown').value;
+    let options = document.querySelector('.qualityDropDown');
+    let itag = options.options[options.selectedIndex].id;
     let userFileName = document.querySelector('.fileName').value;
-    let itag, fileName;
+    let fileName;
 
     if (userFileName !== "") {
         fileName = userFileName
     } else {
         fileName = title.textContent;
     }
-
-    if (quality === '240p') {
-        itag = 133;
-    } else if (quality === '360p') {
-        itag = 134
-    } else if (quality === '480p') {
-        itag = 135
-    } else if (quality === '720p') {
-        itag = 136
-    } else if (quality === '1080p') {
-        itag = 137
-    } else if (quality === '2160p60') {
-        itag = 138
-    }
-
 
     console.log(`URL: ${img.id}`);
     sendID(img.id, fileName, itag);

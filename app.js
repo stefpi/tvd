@@ -171,26 +171,13 @@ app.post('/ydl', function(req, res) {
             ytdl.getInfo(youid, (err, info) => {
                 if (err) throw err;
 
+                let audioFormats = ytdl.filterFormats(info.formats, 'audioandvideo');
+
                 let int = 0;
-                for (let i=0; i<info.formats.length; i++) {
-                    if (info.formats[i].itag === 133) {
-                        quality[int] = "240p";
-                        int++;
-                    } else if (info.formats[i].itag === 134) {
-                        quality[int] = "360p";
-                        int++;
-                    } else if (info.formats[i].itag === 135) {
-                        quality[int] = "480p";
-                        int++;
-                    } else if (info.formats[i].itag === 136) {
-                        quality[int] = "720p";
-                        int++;
-                    } else if (info.formats[i].itag === 137) {
-                        quality[int] = "1080p";
-                        int++;
-                    } else if (info.formats[i].itag === 138) {
-                        quality[int] = "2160p60";
-                        int++;
+                for (let i=0; i<audioFormats.length; i++) {
+                    quality[i] = {
+                        'itag': audioFormats[i].itag,
+                        'quality': audioFormats[i].qualityLabel
                     }
                 }
 

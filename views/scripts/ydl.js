@@ -7,7 +7,7 @@ function returnToPreviousPage() {
 
 function validateMyForm() {
     if (yptext.value !== "" && ytext.value !== "") {
-        alert("please only enter a single video link or multiple");
+        alert("please choose only one option");
         // returnToPreviousPage();
         return false;
     }

@@ -76,6 +76,7 @@ html
             action='/'
             method='post'
             enctype='multipart/form-data'
+            onsubmit="return validateMyForm();"
         )
             div(id='column-header')
                 h3 twitch clip downloader
@@ -97,6 +98,7 @@ html
                             type='file'
                             name='userFile'
                             id='fileupload'
+                            onchange='updateText();'
                         )
                         label(for='fileupload' id='upload-button') [choose a file]
                         div(class='footline' id='footline-button')
@@ -137,3 +139,5 @@ html
                     p.
                         3. To download a clip, press the thumbnail image.
                     div(class='footline')
+        script
+            include scripts/index.js

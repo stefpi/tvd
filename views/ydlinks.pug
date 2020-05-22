@@ -12,14 +12,13 @@ html
                     img(src=videoImg
                         id=videoId
                         class='videoImage'
-                        style='width:100%'
                         )
                     div(class='options')
                         div(class='quality')
                             p Enter Preferred Quality
                             select(class='qualityDropDown')
                                 each val in videoQuality
-                                    option=val
+                                    option(class='qualityOption' id=val.itag)=val.quality
                         div(class='userFileName')
                             p Enter Preferred File Name
                             input(
