@@ -94,7 +94,7 @@ html, body {
     color: white;
 }
 .child {
-    font-family: 'Black Ops One', cursive;
+    font-family: Verdana;
     color: rebeccapurple;
 }
 .row {
@@ -108,35 +108,21 @@ html, body {
     align-items: center;
     flex-direction: column;
 }
-#column-header {
-    height: 8%;
-    width: 95%;
-    -moz-box-shadow: 0 0 10px #000000;
-    -webkit-box-shadow: 0 0 10px #000000;
-    box-shadow: 0 15px 35px 0 rgba(18,37,49,.1),0 5px 15px 0 rgba(0,0,0,.05);
-    border-radius: 8px;
-    background-color: white;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-}
-#column-header h3 {
-    font-size: 2.5vw;
-}
 #column-body-1 {
-    height: 15%;
+    height: fit-content;
+    padding-top: 40px;
+    padding-bottom: 40px;
     width: 95%;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
 }
 #column-body-1 p {
     margin-top: 0px;
 }
 #column-body-2 {
-    height: 15%;
+    height: fit-content;
+    padding-top: 40px;
+    padding-bottom: 40px;
     width: 95%;
     align-items: center;
     justify-content: center;
@@ -146,8 +132,10 @@ html, body {
     margin-top: 0px;
 }
 #column-footer {
-    height: 5%;
+    height: fit-content;
     width: 95%;
+    padding-top: 10px;
+    padding-bottom: 10px;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
@@ -159,7 +147,8 @@ html, body {
     width: 75%;
 }
 .file-input-header {
-    font-family: "Black Ops One", cursive;
+    font-family: Verdana;
+    font-weight: bold;
     padding: 0;
 }
 .file-input-body-example {
@@ -261,25 +250,55 @@ html, body {
     cursor: pointer;
     color: #FF0000;
     background-color: white;
-    font-family: "Black Ops One", cursive;
+    font-family: Verdana;
+    font-weight: bold;
     font-size: 20px;
 }
 .rounded-box {
     width: 100%;
-    height: 40%;
+    height: fit-content;
     -moz-box-shadow: 0 0 10px #000000;
     -webkit-box-shadow: 0 0 10px #000000;
     box-shadow: 0 15px 35px 0 rgba(18,37,49,.1),0 5px 15px 0 rgba(0,0,0,.05);
     border-radius: 8px;
+    padding: 40px 20px;
     background-color: white;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
+.title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    text-decoration: none;
+}
+.title h3 {
+    margin: 0;
+    font-family: Verdana;
+    font-weight: bold;
+}
+.title p {
+    margin: 0;
+    font-family: Verdana;
+    /*font-weight: bold;*/
+}
 .instructions {
     width: 75%;
     text-align: justify;
+}
+.instructions h3 {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-family: Verdana;
+    font-weight: bold;
 }
 /*#file-input {*/
 /*    float: top;*/

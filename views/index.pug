@@ -82,8 +82,6 @@ html
             enctype='multipart/form-data'
             onsubmit="return validateMyForm();"
         )
-            div(id='column-header')
-                h3 twitch clip downloader
             div(class='row' id='column-body-1')
                 div(class='file-input-padding')
                     div(class='file-input-header')
@@ -132,18 +130,23 @@ html
                     )
         div(class='column' id='howto')
             div(class='rounded-box')
-                div(class='linktoydl')
-                    a(href='/ydl') Youtube Video Downloader
+                div(class='title')
+                    h3 twitch video downloader
+                    p for all of your bulk clip download needs
+                a(href='/ydl' class='linktoydl')
+                    span NEW!
+                    span try our youtube video downloader
+                    span >
                 div(class='instructions')
-                    div(class='footline')
+                    div(class='footline' style='background-color: mediumpurple;')
                     h3 How to use TVD
                     p.
-                        1. Choose a method to upload the clips, which can either be using a clips.txt file
+                        1. Choose a method to upload the clip links, which can either be using a clips.txt file
                         or directly inputting the links into the browser text box.
                     p.
                         2. Press the submit button, which will display all of your links.
                     p.
                         3. To download a clip, press the thumbnail image.
-                    div(class='footline')
+                    div(class='footline' style='background-color: mediumpurple;')
         script
             include scripts/index.js
