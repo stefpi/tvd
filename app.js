@@ -14,6 +14,7 @@ const youtube = google.youtube('v3');
 const app = express();
 const port = process.env.PORT || 80;
 const clientId = process.env.CLIENTID;
+const clientSecret = process.env.CSECRET;
 const ykey = process.env.YKEY;
 
 app.set('view engine', 'pug');
@@ -28,8 +29,21 @@ let upload = multer({dest: 'uploads/'});
 let clips = [];
 let wordID = [];
 
+let bearerToken = "";
 app.get('/', function(req, res) {
     res.render('index');
+    const bearerOptions = {
+        method: 'POST',
+        url: "https://id.twitch.tv/oauth2/token?client_id=" + clientId +"&client_secret=" + clientSecret + "&grant_type=client_credentials",
+        headers: {
+        }
+    };
+    request(bearerOptions, (err, res, body) => {
+        if (err) {console.log(err);}
+        const contents = JSON.parse(body);
+        console.log(contents);
+        bearerToken = contents.access_token;
+    });
 });
 
 // app.get('/howto', function(req, res) {
@@ -76,6 +90,7 @@ app.post('/', upload.single('userFile'), function(req, response) {
         const options = {
             url: 'https://api.twitch.tv/helix/clips?id=' + wordID[i],
             headers: {
+                'Authorization': "Bearer " + bearerToken,
                 'Client-ID': clientId
             }
         };
@@ -85,8 +100,6 @@ app.post('/', upload.single('userFile'), function(req, response) {
             const contents = JSON.parse(body);
             let thumbStr = contents.data[0].thumbnail_url;
             let thumbArr = thumbStr.split("-preview-");
-            // let vidLink = thumbArr[0] + ".mp4";
-            // videoLinks.push(vidLink);
             videoLinks[i] = thumbArr[0] + ".mp4";
 
             imgSizeX[i] = (thumbArr[1].split(".jpg")[0].split("x")[0]);
