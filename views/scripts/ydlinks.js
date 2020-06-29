@@ -3,7 +3,7 @@ let img = document.querySelector('.videoImage');
 let title = document.querySelector('#title');
 
 function sendID(id, title, itag) {
-    alert("redirecting you to " + id + " " + title + " with this quality: " + itag);
+    // alert("redirecting you to " + id + " " + title + " with this quality: " + itag);
     // fetch(`${window.location.hostname}/download?ID=${id}`, {
     //     method:'GET'
     // }).then(res => res.json())

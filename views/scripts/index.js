@@ -4,7 +4,6 @@ let fileInputLabel = document.querySelector('#upload-button');
 
 function validateMyForm() {
     if (textInput.value !== "" && fileInput.value !== "") {
-        alert("please choose only one option");
         // returnToPreviousPage();
         return false;
     }

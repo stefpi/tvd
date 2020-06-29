@@ -1,7 +1,7 @@
 let buttons = document.querySelectorAll('button.download');
 
 function sendID(id, title) {
-    alert("redirecting you to " + id + " " + title);
+    // alert("redirecting you to " + id + " " + title);
     // fetch(`${window.location.hostname}/download?ID=${id}`, {
     //     method:'GET'
     // }).then(res => res.json())
