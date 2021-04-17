@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>twitchdl</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
+    <link rel="stylesheet" href="assets/css/Projects-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <div class="projects-clean">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center" style="margin-bottom: 28px;padding-top: 140px;">twitchdl</h2>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center" style="height: auto;width: 50%;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;margin: auto;border-radius: 20px;padding-top: 35px;padding-bottom: 35px;">
+        <div style="width: 90%;height: 100%;text-align: center;">
+            <form id="inputs" action="/" method="post" onsubmit="return validateMyForm();">
+                <textarea id="textarea" name="textarea" style="resize: none;outline: none;text-align: left;vertical-align: top;width: 95%;border-radius: 20px;border-style: solid;border-color: var(--white);background: #e8e8e8;font-size: 15px;padding: 12px;height: 93px;padding-left: 19px;" placeholder="https://www.twitch.tv/nairomk/clip/FastBlatantAntPeteZarollTie&#10;https://www.twitch.tv/s1mple/clip/RepleteEnthusiasticMageCeilingCat&#10;https://www.twitch.tv/loltyler1/clip/LongMildConsoleFreakinStinkin"></textarea>
+                <button class="btn btn-primary text-center" id="submit" type="Submit" style="width: 95%;margin-top: 12px;border-radius: 10px;">Download</button>
+            </form>
+            <div class="card" style="margin-top: 0px;border-style: none;">
+                <div class="card-body" style="border-style: none; text-align:left;">
+                    <h4 class="card-title">What is twitchdl?</h4>
+                    <p class="card-text">twitchdl is a <a href="http://twitch.tv">twitch.tv</a> clip downloader inspired by <a href="http://clipr.xyz">clipr.xyz</a>. The purpose of twitchdl is to allow anyone to get multiple clip download links at the same time. So assemble your stash, input it above and enjoy!<br></p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 0px;border-style: none;">
+                <div class="card-body" style="border-style: none;text-align: left;padding-top: 0px;padding-bottom: 0px;">
+                    <h4 class="card-title">How to use it?</h4>
+                    <p class="card-text">Step 1: Choose your clips. Do not exceed 30 clips at a time.<br>Step 2: Enter your clips in the input area above, with a comma (,) after each clip link.<br>Step 3: Press the download button and see all of your clips on the same page.<br>Step 4: Click the thumbnail of the clip to download the clip.<br><br>If it doesn't work. Wait a minute and try again.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

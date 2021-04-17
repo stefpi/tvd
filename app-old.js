@@ -32,14 +32,31 @@ let wordID = [];
 let bearerToken = "";
 app.get('/', function(req, res) {
     res.render('index');
+    const bearerOptions = {
+        method: 'POST',
+        url: "https://id.twitch.tv/oauth2/token?client_id=" + clientId +"&client_secret=" + clientSecret + "&grant_type=client_credentials",
+        headers: {
+        }
+    };
+    request(bearerOptions, (err, res, body) => {
+        if (err) {console.log(err);}
+        const contents = JSON.parse(body);
+        console.log(contents);
+        bearerToken = contents.access_token;
+    });
 });
 
-app.post('/', function(req, response) {
-    console.log(req.body);
+// app.get('/howto', function(req, res) {
+//     res.render('howto');
+// });
+
+app.post('/', upload.single('userFile'), function(req, response) {
+    // let a = req.file.path;
     let b = req.body.textarea;
     let userFilePath;
 
-    if(b != null) {
+    if(req.file != null) {userFilePath = req.file.path;}
+    else if(b != null) {
         userFilePath = 'uploads/clips.txt';
         fs.writeFileSync(userFilePath, b);
     } else {
@@ -48,7 +65,10 @@ app.post('/', function(req, response) {
 
     let file = fs.readFileSync(userFilePath, 'utf8');
     clips = file.toString().split('\n');
-    
+    // id = clips[0].split(' ')[0];
+    // clips.splice(0, 1);
+    // console.log(clips);
+    // console.log(id);
     for (let i = 0; i < clips.length; i++) {
         console.log(clips[i]);
         wordID[i] = clips[i].split("clip/").pop().split(" ")[0];
@@ -66,65 +86,47 @@ app.post('/', function(req, response) {
     let imgRatio = [];
     let index = 0;
 
-    const bearerOptions = {
-        method: 'POST',
-        url: "https://id.twitch.tv/oauth2/token?client_id=" + clientId +"&client_secret=" + clientSecret + "&grant_type=client_credentials",
-        headers: {
-        }
-    };
-    request(bearerOptions, (err, res, body) => {
-        if (err) {console.log(err);}
-        const contents = JSON.parse(body);
-        console.log(contents);
-        bearerToken = contents.access_token;
+    for (let i = 0; i < clips.length; i++) {
+        const options = {
+            url: 'https://api.twitch.tv/helix/clips?id=' + wordID[i],
+            headers: {
+                'Authorization': "Bearer " + bearerToken,
+                'Client-ID': clientId
+            }
+        };
 
-        for (let i = 0; i < clips.length; i++) {
-            const options = {
-                url: 'https://api.twitch.tv/helix/clips?id=' + wordID[i],
-                headers: {
-                    'Authorization': "Bearer " + bearerToken,
-                    'Client-ID': clientId
-                }
-            };
-    
-            request(options, (err,res, body) => {
-                if (err) {console.log(err);}
-                const contents = JSON.parse(body);
-                console.log(contents);
+        request(options, (err,res, body) => {
+            if (err) {console.log(err);}
+            const contents = JSON.parse(body);
+            let thumbStr = contents.data[0].thumbnail_url;
+            let thumbArr = thumbStr.split("-preview-");
+            videoLinks[i] = thumbArr[0] + ".mp4";
 
-                if(contents.data = null) {
-                    index++;
-                } else {
-                    let thumbStr = contents.data[0].thumbnail_url;
-                    let thumbArr = thumbStr.split("-preview-");
-                    videoLinks[i] = thumbArr[0] + ".mp4";
-    
-                    imgSizeX[i] = (thumbArr[1].split(".jpg")[0].split("x")[0]);
-                    imgSizeY[i] = (thumbArr[1].split(".jpg")[0].split("x")[1]);
-                    imgRatio[i] = (imgSizeX[i]/imgSizeY[i]);
-                    console.log(imgSizeX[i] + " " + imgSizeY[i] + " " + imgRatio[i]);
-                    imgSizeX[i] = 400;
-                    imgSizeY[i] = 400/imgRatio[i];
-                    // let vidTitle = contents.data[0].title;
-                    // videoTitles.push(vidTitle);
-                    videoTitles[i] = contents.data[0].title;
-                    thumbImg[i] = thumbStr;
-    
-                    if(index === clips.length - 1) {
-                        response.render('links', {
-                            links: videoLinks,
-                            titles: videoTitles,
-                            images: thumbImg,
-                            imgNum: clips.length,
-                            imgX: imgSizeX,
-                            imgY: imgSizeY
-                        });
-                    }
-                    index++;
-                }
-            });
-        }
-    });
+            imgSizeX[i] = (thumbArr[1].split(".jpg")[0].split("x")[0]);
+            imgSizeY[i] = (thumbArr[1].split(".jpg")[0].split("x")[1]);
+            imgRatio[i] = (imgSizeX[i]/imgSizeY[i]);
+            console.log(imgSizeX[i] + " " + imgSizeY[i] + " " + imgRatio[i]);
+            imgSizeX[i] = 400;
+            imgSizeY[i] = 400/imgRatio[i];
+            // let vidTitle = contents.data[0].title;
+            // videoTitles.push(vidTitle);
+            videoTitles[i] = contents.data[0].title;
+
+            thumbImg[i] = thumbStr;
+
+            if(index === clips.length - 1) {
+                response.render('links', {
+                    links: videoLinks,
+                    titles: videoTitles,
+                    images: thumbImg,
+                    imgNum: clips.length,
+                    imgX: imgSizeX,
+                    imgY: imgSizeY
+                });
+            }
+            index++;
+        });
+    }
 });
 
 app.get('/ydl', function(req, res) {
