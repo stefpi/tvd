@@ -12,7 +12,7 @@ const { google } = require('googleapis');
 const youtube = google.youtube('v3');
 
 const app = express();
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8000;
 const clientId = process.env.CLIENTID;
 const clientSecret = process.env.CSECRET;
 const ykey = process.env.YKEY;
@@ -49,10 +49,13 @@ app.post('/', function(req, response) {
     let file = fs.readFileSync(userFilePath, 'utf8');
     clips = file.toString().split('\n');
     
+    console.log(clips.length);
+
     for (let i = 0; i < clips.length; i++) {
         console.log(clips[i]);
-        wordID[i] = clips[i].split("clip/").pop().split(" ")[0];
-        console.log(wordID[i] + "\n");
+        let lastSlash = clips[i].lastIndexOf("/");
+        wordID[i] = clips[i].slice(lastSlash+1);
+        console.log(wordID[i]);
     }
 
     console.log(userFilePath);
@@ -77,8 +80,8 @@ app.post('/', function(req, response) {
         const contents = JSON.parse(body);
         console.log(contents);
         bearerToken = contents.access_token;
-
-        for (let i = 0; i < clips.length; i++) {
+        
+        for (let i = 0; i < wordID.length; i++) {
             const options = {
                 url: 'https://api.twitch.tv/helix/clips?id=' + wordID[i],
                 headers: {
@@ -91,36 +94,34 @@ app.post('/', function(req, response) {
                 if (err) {console.log(err);}
                 const contents = JSON.parse(body);
                 console.log(contents);
+                console.log('\n' + contents.data[0].thumbnail_url);
 
-                if(contents.data = null) {
-                    index++;
-                } else {
-                    let thumbStr = contents.data[0].thumbnail_url;
-                    let thumbArr = thumbStr.split("-preview-");
-                    videoLinks[i] = thumbArr[0] + ".mp4";
-    
-                    imgSizeX[i] = (thumbArr[1].split(".jpg")[0].split("x")[0]);
-                    imgSizeY[i] = (thumbArr[1].split(".jpg")[0].split("x")[1]);
-                    imgRatio[i] = (imgSizeX[i]/imgSizeY[i]);
-                    console.log(imgSizeX[i] + " " + imgSizeY[i] + " " + imgRatio[i]);
-                    imgSizeX[i] = 400;
-                    imgSizeY[i] = 400/imgRatio[i];
-                    // let vidTitle = contents.data[0].title;
-                    // videoTitles.push(vidTitle);
-                    videoTitles[i] = contents.data[0].title;
-                    thumbImg[i] = thumbStr;
-    
-                    if(index === clips.length - 1) {
-                        response.render('links', {
-                            links: videoLinks,
-                            titles: videoTitles,
-                            images: thumbImg,
-                            imgNum: clips.length,
-                            imgX: imgSizeX,
-                            imgY: imgSizeY
-                        });
-                    }
-                    index++;
+                let thumbStr = contents.data[0].thumbnail_url;
+                let thumbArr = thumbStr.split("-preview-");
+                videoLinks[i] = thumbArr[0] + ".mp4";
+
+                imgSizeX[i] = (thumbArr[1].split(".jpg")[0].split("x")[0]);
+                imgSizeY[i] = (thumbArr[1].split(".jpg")[0].split("x")[1]);
+                imgRatio[i] = (imgSizeX[i]/imgSizeY[i]);
+                console.log(imgSizeX[i] + " " + imgSizeY[i] + " " + imgRatio[i]);
+                imgSizeX[i] = 400;
+                imgSizeY[i] = 400/imgRatio[i];
+                // let vidTitle = contents.data[0].title;
+                // videoTitles.push(vidTitle);
+                videoTitles[i] = contents.data[0].title;
+                thumbImg[i] = thumbStr;
+
+                index++;
+                if (index == wordID.length) {
+                    console.log(videoLinks, videoTitles);
+                    response.render('links', {
+                        links: videoLinks,
+                        titles: videoTitles,
+                        images: thumbImg,
+                        imgNum: clips.length,
+                        imgX: imgSizeX,
+                        imgY: imgSizeY
+                    });
                 }
             });
         }
